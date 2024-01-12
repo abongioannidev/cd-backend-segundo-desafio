@@ -20,7 +20,7 @@ export class MemoryRespository {
   }
 
   async deleteElementById(id) {
-    const index = this.#elements.indexOf((e) => e.id === id);
+    const index = this.#elements.findIndex((e) => e.id === id);
     if (index === -1) throw new Error("element not found");
     this.#elements.splice(index, 1);
   }

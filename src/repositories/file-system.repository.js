@@ -65,7 +65,7 @@ export class FileSystemRepository {
 
   async deleteElementById(id) {
     const elements = await this.getElements();
-    const index = elements.indexOf((e) => e.id === id);
+    const index = elements.findIndex((e) => e.id === id);
     if (index === -1) throw new Error("element not found");
     this.elements.splice(index, 1);
     await this.#saveDataIntoFile(elements);

@@ -14,14 +14,12 @@ export class ProductManager {
   }
 
   async getProducts() {
-    const products = await this.repository.getElements();
-    return products.map((object) => this.#objectToProduct(object));
+    return await this.repository.getElements();
   }
 
   async getProductById(id) {
     try {
-      const object = await this.repository.getElementById(id);
-      return this.#objectToProduct(object);
+      return await this.repository.getElementById(id);
     } catch (error) {
       return error.message;
     }
@@ -49,7 +47,9 @@ export class ProductManager {
   }
 
   async #validateFieldCode(product) {
-    const allProducts = await this.getProducts();
+    const allProducts = (await this.getProducts()).map((object) =>
+      this.#objectToProduct(object)
+    );
     const result = allProducts.some((p) => p.equal(product));
 
     if (result) {
